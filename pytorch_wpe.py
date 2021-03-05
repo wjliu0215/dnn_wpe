@@ -98,7 +98,7 @@ def get_correlations(Y: ComplexTensor, inverse_power: torch.Tensor,
     # (F, C, T, taps) x (F, C, T, taps) -> (F, taps, C, taps, C)
     correlation_matrix = FC.einsum('fdtk,fetl->fkdle', (Psi_conj_norm, Psi))
     # (F, taps, C, taps, C) -> (F, taps * C, taps * C)
-    correlation_matrix = correlation_matrix.view(F, taps * C, taps * C)
+    correlation_matrix = correlation_matrix.reshape(F, taps * C, taps * C)
 
     # (F, C, T, taps) x (F, C, T) -> (F, taps, C, C)
     correlation_vector = FC.einsum(
